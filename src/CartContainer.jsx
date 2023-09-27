@@ -2,7 +2,7 @@ import CartItem from './CartItem';
 import { useGobalContext } from './Context';
 import cartItems from './data';
 const CartContainer = () => {
-  const {cart , clearCart} =useGobalContext()
+  const {cart , clearCart ,totalCost} =useGobalContext()
   const cartArray = Array.from(cart.entries());
 
   if (cartArray.length === 0) {
@@ -35,7 +35,7 @@ const CartContainer = () => {
         <hr />
         <div>
           <h5 className='cart-total'>
-            total <span>$10</span>
+            total <span>${totalCost.toFixed(2)}</span>
           </h5>
         </div>
         <button
