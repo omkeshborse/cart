@@ -12,25 +12,30 @@ const reducer = (state, action) => {
   } else if (action.type === REMOVE) {
     const newCart = new Map(state.cart);
     newCart.delete(action.payload.id);
-    return { ...state  , cart : newCart};
-  }else if (action.type === INCREASE) {
-    const newCart = new Map(state.cart) 
-    const itemId = action.payload.id
-    const item  = newCart.get(itemId) ;
-    const newItem = {...item , amount : item.amount + 1} 
-    newCart.set(itemId ,newItem )
-    return {...state , cart : newCart}
-  }else if (action.type === DECREASE) {
-    const newCart = new Map(state.cart) 
-    const itemId = action.payload.id
-    const item  = newCart.get(itemId) ;
+    return { ...state, cart: newCart };
+  } else if (action.type === INCREASE) {
+    const newCart = new Map(state.cart);
+    const itemId = action.payload.id;
+    const item = newCart.get(itemId);
+    const newItem = { ...item, amount: item.amount + 1 };
+    newCart.set(itemId, newItem);
+    return { ...state, cart: newCart };
+  } else if (action.type === DECREASE) {
+    const newCart = new Map(state.cart);
+    const itemId = action.payload.id;
+    const item = newCart.get(itemId);
     if (item.amount === 1) {
-      newCart.delete(itemId)
-      return {...state ,cart : newCart}
+      newCart.delete(itemId);
+      return { ...state, cart: newCart };
     }
-    const newItem = {...item , amount : item.amount - 1} 
-    newCart.set(itemId ,newItem )
-    return {...state , cart : newCart}
+    const newItem = { ...item, amount: item.amount - 1 };
+    newCart.set(itemId, newItem);
+    return { ...state, cart: newCart };
+  } else if (action.type === LOADING) {
+    return { ...state, loading: true };
+  } else if (action.type === DISPLAY_ITEMS) {
+    const newCart = new Map(action.payload.cart.map((item) => [item.id, item]));
+    return {...state ,loading : false , cart : newCart}
   }
   throw new Error(`no matcing action type : ${action.type}`);
 };
